@@ -16,7 +16,7 @@ Java Development Kit (JDK)** (for Android)
 
 <!-- clone the repo -->
 
-git clone https://github.com/your-username/MalabTodo.git
+git clone https://github.com/your-username/MalabTodo.git](https://github.com/habeeb-nasr-12/MalabTodo.git)
 cd MalabTodo
 
 
