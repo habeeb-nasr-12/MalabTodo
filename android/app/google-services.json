@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1079299345452",
+    "project_id": "malabtodo",
+    "storage_bucket": "malabtodo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079299345452:android:561240e1b7617560405589",
+        "android_client_info": {
+          "package_name": "com.malabtodonew"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfsFLIv_X7eEE8BV3VEP6tLKL81CNnWNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
