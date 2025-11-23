@@ -1,5 +1,6 @@
 
 MalabToDo
+<br/>
 A cross-platform mobile todo application built with React Native, TypeScript, and Firebase.
 
 Prerequisites
@@ -16,7 +17,7 @@ Java Development Kit (JDK)** (for Android)
 
 <!-- clone the repo -->
 
-git clone https://github.com/your-username/MalabTodo.git](https://github.com/habeeb-nasr-12/MalabTodo.git)
+git clone https://github.com/your-username/MalabTodo.git](https://github.com/habeeb-nasr-12/MalabTodo.git
 cd MalabTodo
 
 
