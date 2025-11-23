@@ -17,7 +17,7 @@ Java Development Kit (JDK)** (for Android)
 
 <!-- clone the repo -->
 
-git clone https://github.com/your-username/MalabTodo.git](https://github.com/habeeb-nasr-12/MalabTodo.git
+git clone repo 
 cd MalabTodo
 
 
@@ -111,7 +111,6 @@ Available Scripts
 - `npm start` - Start Metro bundler
 - `npm run ios` - Run on iOS simulator/device
 - `npm run android` - Run on Android emulator/device
-- `npm run android&ios` - Run on both platforms simultaneously
 - `npm run lint` - Run ESLint
 - `npm test` - Run tests
 
