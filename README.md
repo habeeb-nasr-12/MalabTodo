@@ -24,7 +24,7 @@ cd MalabTodo
 Opening in vs code 
 
 1. Open the project folder:
-   - Launch Cursor
+   - Launch vs code
    - Go to `File > Open Folder...` (or `Cmd+O` on macOS, `Ctrl+O` on Windows/Linux)
    - Navigate to the `MalabTodo` directory and select it
 
@@ -51,7 +51,7 @@ Running the App
 
 #Start Metro Bundler
 
-In a terminal (or Cursor's integrated terminal), run:
+In a terminal (or vs code's integrated terminal), run:
 
 ```bash
 npm start
@@ -67,7 +67,7 @@ Requirements:
 
 Steps:
 
-1. Open a new terminal in Cursor (keep Metro running in another terminal)
+1. Open a new terminal in vs code (keep Metro running in another terminal)
 
 2. Run the iOS app:
    npm run ios
