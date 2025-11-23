@@ -3,11 +3,9 @@ import { render, fireEvent } from '@testing-library/react-native';
 import { TouchableOpacity } from 'react-native';
 import { EditTodoModal } from '../components/EditTodoModal';
 import { Todo } from '../types/todo.types';
-import { useTodos } from '../hooks/useTodos';
 import { useUpdateTodo } from '../hooks/useUpdateTodo';
 
 // Mock the hooks
-jest.mock('../hooks/useTodos');
 jest.mock('../hooks/useUpdateTodo');
 jest.mock('react-hook-form', () => ({
   useForm: () => ({
@@ -44,7 +42,6 @@ jest.mock('../components/DateSelector', () => ({
   DateSelector: 'DateSelector',
 }));
 
-const mockUseTodos = useTodos as jest.Mock;
 const mockUseUpdateTodo = useUpdateTodo as jest.Mock;
 
 describe('EditTodoModal', () => {
@@ -65,10 +62,6 @@ describe('EditTodoModal', () => {
   };
 
   beforeEach(() => {
-    mockUseTodos.mockReturnValue({
-      data: [mockTodo],
-      isLoading: false,
-    });
     mockUseUpdateTodo.mockReturnValue(mockUpdateMutation);
   });
 
