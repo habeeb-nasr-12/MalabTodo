@@ -14,7 +14,6 @@ import { TitleInput } from './TitleInput';
 import { DescriptionInput } from './DescriptionInput';
 import { PrioritySelector } from './PrioritySelector';
 import { DateSelector } from './DateSelector';
-import { useTodos } from '../hooks/useTodos';
 import { useUpdateTodo } from '../hooks/useUpdateTodo';
 import { Priority, Todo, UpdateTodoInput } from '../types/todo.types';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -38,8 +37,7 @@ interface EditTodoFormData {
 
 export const EditTodoModal = React.memo(({todo}: EditTodoModalProps) => {
     const [visible, setVisible] = React.useState(false);
-    const { data: todos, isLoading: isLoadingTodos } = useTodos();
-    const updateTodoMutation = useUpdateTodo();
+    const {mutateAsync : updateTodoMutation, isPending : isUpdating } = useUpdateTodo();
     const {
       control,
       handleSubmit,
@@ -49,13 +47,11 @@ export const EditTodoModal = React.memo(({todo}: EditTodoModalProps) => {
       defaultValues: {
         title: todo?.title || '',
         description: todo?.description || '',
-        priority: todo?.priority || 'meduim',
+        priority: todo?.priority || 'medium',
         dueDate: todo?.dueDate ,
       },
       mode: 'onBlur',
     });
-
-
     const onSubmit = async (data: EditTodoFormData) => {
       const todoId =  todo?.id;
       if (!todoId) return;
@@ -69,7 +65,7 @@ export const EditTodoModal = React.memo(({todo}: EditTodoModalProps) => {
           dueDate: data.dueDate,
         };
 
-        await updateTodoMutation.mutateAsync(updateInput);
+        await updateTodoMutation(updateInput);
         setVisible(false);
         reset();
       } catch {
@@ -82,12 +78,12 @@ export const EditTodoModal = React.memo(({todo}: EditTodoModalProps) => {
     };
 
     const handleClose = () => {
-      if (updateTodoMutation.isPending || isSubmitting) return;
+      if (isUpdating || isSubmitting) return;
       reset();
       setVisible(false);
     };
 
-    const isLoading = isLoadingTodos || updateTodoMutation.isPending || isSubmitting;
+    const isLoading = isUpdating || isSubmitting;
 
   return (
     <>
@@ -129,18 +125,7 @@ export const EditTodoModal = React.memo(({todo}: EditTodoModalProps) => {
 
             {/* Content */}
             <View className="px-6 py-6">
-              {isLoadingTodos && !todo && id ? (
-                <View className="py-8 items-center">
-                  <ActivityIndicator size="large" color="#0f172a" />
-                  <Text className="text-gray-600 mt-4">Loading task...</Text>
-                </View>
-              ) : !todo && id ? (
-                <View className="py-8 items-center">
-                  <Text className="text-gray-600 text-center">
-                    Task not found
-                  </Text>
-                </View>
-              ) : todo ? (
+              {todo ? (
                 <>
                   <Controller
                     control={control}
@@ -212,7 +197,13 @@ export const EditTodoModal = React.memo(({todo}: EditTodoModalProps) => {
                     )}
                   />
                 </>
-              ) : null}
+              ) : (
+                <View className="py-8 items-center">
+                  <Text className="text-gray-600 text-center">
+                    Task not found
+                  </Text>
+                </View>
+              )}
             </View>
             {todo && (
               <View className="px-6 pb-6 pt-4 border-t border-gray-200 bg-white">
