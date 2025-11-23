@@ -1,5 +1,6 @@
 
 MalabToDo
+<br/>
 A cross-platform mobile todo application built with React Native, TypeScript, and Firebase.
 
 Prerequisites
