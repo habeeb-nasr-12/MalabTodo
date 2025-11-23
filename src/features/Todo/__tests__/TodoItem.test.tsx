@@ -6,19 +6,28 @@ import { Todo } from '../types/todo.types';
 import { useDeleteTodo } from '../hooks/useDeleteTodo';
 import { useUpdateTodo } from '../hooks/useUpdateTodo';
 
-jest.spyOn(Alert, 'alert').mockImplementation(() => {});
-jest.mock('react-native-vector-icons/MaterialIcons', () => 'Icon');
+// Mock Alert - use Object.defineProperty to mock alert method
+const mockAlert = jest.fn();
+Object.defineProperty(Alert, 'alert', {
+  value: mockAlert,
+  writable: true,
+  configurable: true,
+});
 
+jest.mock('react-native-vector-icons/MaterialIcons', () => 'Icon');
 
 jest.mock('../hooks/useDeleteTodo');
 jest.mock('../hooks/useUpdateTodo');
 jest.mock('../components/EditTodoModal', () => ({
   EditTodoModal: 'EditTodoModal',
 }));
-jest.mock('../components/TodoDetailsModal', () => ({
-  TodoDetailsModal: React.forwardRef(() => null),
-  TodoDetailsModalRef: {},
-}));
+jest.mock('../components/TodoDetailsModal', () => {
+  const mockReact = require('react');
+  return {
+    TodoDetailsModal: mockReact.forwardRef(() => null),
+    TodoDetailsModalRef: {},
+  };
+});
 
 const mockDeleteTodo = jest.fn();
 const mockUpdateTodo = jest.fn();
@@ -74,7 +83,8 @@ describe('TodoItem', () => {
     
     const touchableOpacityes = UNSAFE_root.findAllByType(TouchableOpacity);
     if (touchableOpacityes.length >= 2) {
-      fireEvent.press(touchableOpacityes[1]);
+      const mockEvent = { stopPropagation: jest.fn() };
+      touchableOpacityes[1].props.onPress(mockEvent);
       
       expect(mockUpdateTodo).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -113,10 +123,11 @@ describe('TodoItem', () => {
     if (touchableOpacityes.length > 0) {
       // Try to find and press the delete button (usually one of the last ones)
       const deleteButton = touchableOpacityes[touchableOpacityes.length - 1];
-      fireEvent.press(deleteButton);
+      const mockEvent = { stopPropagation: jest.fn() };
+      deleteButton.props.onPress(mockEvent);
       
       // Alert should be called for confirmation
-      expect(Alert.alert).toHaveBeenCalled();
+      expect(mockAlert).toHaveBeenCalled();
     }
     
     // Component should render
